@@ -1,10 +1,10 @@
 import React, { Component } from "react"
+import CheckboxGroup from './CheckboxGroup'
 
 class BinConverter extends Component {
 
   constructor(props) {
     super(props)
-    this.chkboxes32Arr = []
 
     this.bitsVal = 0
     this.state = {
@@ -80,31 +80,6 @@ class BinConverter extends Component {
   }
 
 
-  Checkbox = ({ label, isSelected, onCheckboxChange }) => (
-    <label className="flex flex-column f5 pa1 items-center">
-      {label}
-      <input
-        type="checkbox"
-        name={label}
-        checked={isSelected}
-        onChange={onCheckboxChange}
-      />
-    </label>
-  )
-
-
-  create32checkboxes = () => {
-    return this.state.checkedArr.map((checked, index) => {
-      return <this.Checkbox
-        label={index.toString(10).padStart(2, "0")}
-        isSelected={checked}
-        onCheckboxChange={this.handleCheckboxChange}
-        key={index.toString(10).padStart(2, "0")}
-      />
-    })
-  }
-
-
   OutputTable = () => {
     return <table className="center">
       <tbody>
@@ -137,12 +112,15 @@ class BinConverter extends Component {
 
 
   render() {
-    this.chkboxes32Arr = this.create32checkboxes()
+
     return (
       <div>
-        <fieldset className="flex flex-row-reverse ba br3 ma3 justify-center w-60 center">
+        <fieldset className="ba br3 ma3 w-60 center">
           <legend>Inputs</legend>
-          {this.chkboxes32Arr}
+          <CheckboxGroup
+            checkedArr={this.state.checkedArr}
+            handler={this.handleCheckboxChange}
+          />
         </fieldset>
 
         <fieldset className="ba br3 ma3 w-60 center">
