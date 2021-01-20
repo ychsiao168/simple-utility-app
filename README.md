@@ -1,1 +1,1 @@
-# small-utilities
+# simple-utility-app
