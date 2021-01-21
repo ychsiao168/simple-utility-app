@@ -1,8 +1,9 @@
 
 import './App.css';
-import TabGroup from "../components/tabgroup"
-import BinConverter from "../components/bin-converter"
-import SimpleTimer from "../components/simple-timer"
+import TabGroup from "../components/Tabgroup"
+import BinConverter from "../components/Bin-converter"
+import QRcode from "../components/Qrcode"
+import SimpleTimer from "../components/Simple-timer"
 
 function App() {
   return (
@@ -11,8 +12,8 @@ function App() {
         tabitmes={
           [
             { name: "binary converter", panel: <BinConverter /> },
-            { name: "timer", panel: <SimpleTimer /> },
-            { name: "undefined", panel: <div></div> },
+            { name: "QR Code", panel: <QRcode /> },
+            { name: "SimpleTimer", panel: <SimpleTimer /> },
           ]
         }
       />
