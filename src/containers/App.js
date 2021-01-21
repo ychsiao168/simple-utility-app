@@ -3,7 +3,7 @@ import './App.css';
 import TabGroup from "../components/Tabgroup"
 import BinConverter from "../components/Bin-converter"
 import QRcode from "../components/Qrcode"
-import SimpleTimer from "../components/Simple-timer"
+import Stopwatch from "../components/Stopwatch"
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
           [
             { name: "binary converter", panel: <BinConverter /> },
             { name: "QR Code", panel: <QRcode /> },
-            { name: "SimpleTimer", panel: <SimpleTimer /> },
+            { name: "Stopwatch", panel: <Stopwatch /> },
           ]
         }
       />

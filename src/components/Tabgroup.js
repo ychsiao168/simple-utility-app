@@ -14,7 +14,7 @@ class TabGroup extends Component {
     })
 
     const panelArr = tabitmes.map((item, idx) => {
-      return <TabPanel key={idx}><h2>{item.panel}</h2></TabPanel>
+      return <TabPanel key={idx}>{item.panel}</TabPanel>
     })
 
     return (
