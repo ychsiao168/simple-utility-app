@@ -31,7 +31,7 @@ const Weathercards = () => {
   }, [location])
 
   if (!gRecords) {
-    return <div></div>
+    return <div>Loading</div>
   }
 
   const { locationName } = gRecords.location[0]
