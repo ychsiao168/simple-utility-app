@@ -4,6 +4,8 @@ import TabGroup from "../components/Tabgroup"
 import BinConverter from "../components/Bin-converter"
 import QRcode from "../components/Qrcode"
 import Stopwatch from "../components/Stopwatch"
+import Weathercards from "../components/Weathercards"
+
 
 function App() {
   return (
@@ -11,9 +13,10 @@ function App() {
       <TabGroup
         tabitmes={
           [
-            { name: "binary converter", panel: <BinConverter /> },
-            { name: "QR Code", panel: <QRcode /> },
-            { name: "Stopwatch", panel: <Stopwatch /> },
+            { name: "binary-converter", bgcolor: "aliceblue", panel: <BinConverter /> },
+            { name: "QR-Code", bgcolor: "cornsilk", panel: <QRcode /> },
+            { name: "Stopwatch", bgcolor: "yellowgreen", panel: <Stopwatch /> },
+            { name: "Weather", bgcolor: "wheat", panel: <Weathercards /> },
           ]
         }
       />

@@ -64,8 +64,8 @@ class QRcode extends Component {
             onKeyDown={this.inputHandler}
           >
           </textarea>
-          <button className="br3 w-10" onClick={this.qrcodeHandler} > GO </button>
-          <button className="br3 w-10" onClick={this.clearHandler} > Clear </button>
+          <button className="br3 w-20" onClick={this.qrcodeHandler} > GO </button>
+          <button className="br3 w-20" onClick={this.clearHandler} > Clear </button>
         </fieldset>
 
         <fieldset className="flex flex-column w-60 center flex ma3 ba br3">

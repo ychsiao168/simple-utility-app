@@ -8,9 +8,8 @@ class TabGroup extends Component {
   render() {
     const { tabitmes } = this.props
 
-
     const titleArr = tabitmes.map((item, idx) => {
-      return <Tab key={idx}>{item.name}</Tab>
+      return <Tab style={{ "background": item.bgcolor }} key={idx}>{item.name}</Tab>
     })
 
     const panelArr = tabitmes.map((item, idx) => {
