@@ -1,29 +1,24 @@
-import React, { Component } from "react"
+import React, { useState } from "react"
 import QRcodeLib from 'qrcode'
 
-class QRcode extends Component {
+const QRcode = () => {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      imgsrc: "",
-      inputText: "",
-      log: ""
-    }
-  }
+  const [imgsrc, setImgsrc] = useState("")
+  const [inputText, setInputtext] = useState("")
+  const [log, setLog] = useState("")
 
-  inputHandler = (event) => {
+  const inputHandler = (event) => {
 
     switch (event.type) {
       case "keydown":
         if (event.key === "Enter") {
           event.preventDefault()
-          this.qrcodeHandler()
+          qrcodeHandler()
         }
         break
 
       case "change":
-        this.setState({ inputText: event.target.value })
+        setInputtext(event.target.value)
         break
 
       default:
@@ -31,51 +26,54 @@ class QRcode extends Component {
     }
   }
 
-  clearHandler = (event) => {
-    this.setState({ imgsrc: "", inputText: "", log: "" })
+  const clearHandler = (event) => {
+    setImgsrc("")
+    setInputtext("")
+    setLog("")
   }
 
-  qrcodeHandler = () => {
-    const { inputText } = this.state
-
+  const qrcodeHandler = () => {
     if (inputText.length === 0) {
-      this.setState({ imgsrc: "", log: "No input" })
+      setImgsrc("")
+      setLog("No input")
       return
     }
 
     QRcodeLib.toDataURL(inputText)
-      .then(url => this.setState({ imgsrc: url, log: `${inputText.length}` }))
+      .then(url => {
+        setImgsrc(url)
+        setLog(inputText.length)
+      })
       .catch(err => console.log(err))
   }
 
-  render = () => {
 
-    return (
-      <div>
-        <fieldset className="w-60 center flex ma3 ba br3 pa3 ma3">
-          <legend> Input String </legend>
-          <textarea
-            className="tc f4 br3 center w-80"
-            rows="4"
-            cols="64"
-            maxLength="256"
-            value={this.state.inputText}
-            onChange={this.inputHandler}
-            onKeyDown={this.inputHandler}
-          >
-          </textarea>
-          <button className="br3 w-20" onClick={this.qrcodeHandler} > GO </button>
-          <button className="br3 w-20" onClick={this.clearHandler} > Clear </button>
-        </fieldset>
+  return (
+    <div>
+      <fieldset className="w-60 center flex ma3 ba br3 pa3 ma3">
+        <legend> Input String </legend>
+        <textarea
+          className="tc f4 br3 center w-80"
+          rows="4"
+          cols="64"
+          maxLength="256"
+          value={inputText}
+          onChange={inputHandler}
+          onKeyDown={inputHandler}
+        >
+        </textarea>
+        <button className="br3 w-20" onClick={qrcodeHandler} > GO </button>
+        <button className="br3 w-20" onClick={clearHandler} > Clear </button>
+      </fieldset>
 
-        <fieldset className="flex flex-column w-60 center flex ma3 ba br3">
-          <legend> QR Code </legend>
-          <img className="center" src={this.state.imgsrc} alt="" width="30%" />
-          <h2 className="center">{this.state.log}</h2>
-        </fieldset>
-      </div>
-    )
-  }
+      <fieldset className="flex flex-column w-60 center flex ma3 ba br3">
+        <legend> QR Code </legend>
+        <img className="center" src={imgsrc} alt="" width="30%" />
+        <h2 className="center">{log}</h2>
+      </fieldset>
+    </div>
+  )
+
 }
 
 export default QRcode
