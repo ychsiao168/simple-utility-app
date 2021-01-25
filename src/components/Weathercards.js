@@ -36,9 +36,9 @@ const Weathercards = () => {
 
   const { locationName } = gRecords.location[0]
   return (
-    <div className="flex flex-column w-40 center">
+    <div>
       <select
-        className="pa3 ma3 br3"
+        className="pa3 ma3 br3 w-40"
         onChange={(e) => { setLocation(e.target.value) }}
         defaultValue={location}
       >
@@ -50,7 +50,7 @@ const Weathercards = () => {
         }
       </select>
 
-      <fieldset className="flex flex-row justify-center pa3 ma3 br3">
+      <fieldset className="flex flex-row justify-center center pa3 ma3 br3 w-40">
         <legend>{locationName}</legend>
         <Weathercard records={gRecords} index={0} />
         <Weathercard records={gRecords} index={1} />
@@ -73,10 +73,13 @@ const Weathercard = ({ records, index }) => {
 
   const { startTime, endTime } = weatherElement[0].time[index]
   const wxIndex = weatherElement[0].time[index].parameter.parameterValue
+  const titleTimeString =
+    `${startTime.substring(5, 16).replace("-", "/").replace(" ", "-")} ~ \
+${endTime.substring(5, 16).replace("-", "/").replace(" ", "-")}`
 
   return (
-    <div className="flex flex-column ba ma3 br3 pa3" style={{ "width": "150px", "height": "200px" }}>
-      <div>{getTimeString(startTime, endTime)}</div>
+    <div className="flex flex-column ma3 br3 pa3 bg-near-white" style={{ "width": "150px", "height": "200px" }}>
+      <div title={titleTimeString}> {getTimeString(startTime, endTime)} </div>
       <img src={getWxImgUrl(wxIndex)} alt={wx} title={wx} height="100px" />
       <div>🌡️ {mint} - {maxt}℃</div>
       <div>☂ {pop}%</div>
@@ -86,11 +89,14 @@ const Weathercard = ({ records, index }) => {
 }
 
 const getTimeString = (start, end) => {
-  const today = new Date().toISOString().substring(0, 10)
+  const tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+  const today = (new Date(Date.now() - tzoffset)).toISOString().substring(0, 10)
   const [sDate, sHour] = start.split(" ")
 
   if (sDate === today && (sHour === "06:00:00" || sHour === "12:00:00")) {
     return ("今日白天")
+  } else if (sDate === today && sHour === "00:00:00") {
+    return ("今日凌晨")
   } else if (sDate === today && sHour === "18:00:00") {
     return ("今晚明晨")
   } else if (sDate !== today && sHour === "06:00:00") {
@@ -98,12 +104,12 @@ const getTimeString = (start, end) => {
   } else if (sDate !== today && sHour === "18:00:00") {
     return ("明日晚上")
   } else {
-    console.log("〇〇〇〇", sDate, sHour)
+    console.log("〇〇〇〇", today, sDate, sHour)
     return ("〇〇〇〇")
   }
 }
 
-const getWxImgUrl = (index) => {  // TODO
+const getWxImgUrl = (index) => {
   return `${process.env.PUBLIC_URL}/images/${index.toString().padStart(2, "0")}.svg`
 }
 
