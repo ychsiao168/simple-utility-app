@@ -49,26 +49,29 @@ const QRcode = () => {
 
 
   return (
-    <div>
-      <fieldset className="w-60 center flex ma3 ba br3 pa3 ma3">
+    <div className="flex flex-column justify-center center w-60">
+      <fieldset className="ba br3 ma3">
         <legend> Input String </legend>
         <textarea
-          className="tc f4 br3 center w-80"
-          rows="4"
-          cols="64"
+          className="tc f5 br3 center w-100"
+          rows="8"
+          cols="32"
           maxLength="256"
           value={inputText}
           onChange={inputHandler}
           onKeyDown={inputHandler}
         >
         </textarea>
-        <button className="br3 w-20" onClick={qrcodeHandler} > GO </button>
-        <button className="br3 w-20" onClick={clearHandler} > Clear </button>
+        <div className="flex center w-100">
+          <button className="pa1 ma1 br3 w-50" onClick={qrcodeHandler} > GO </button>
+          <button className="pa1 ma1 br3 w-50" onClick={clearHandler} > Clear </button>
+        </div>
+
       </fieldset>
 
-      <fieldset className="flex flex-column w-60 center flex ma3 ba br3">
+      <fieldset className="ba br3 ma3 ">
         <legend> QR Code </legend>
-        <img className="center" src={imgsrc} alt="" width="30%" />
+        <img className="center" src={imgsrc} alt="" width="80%" />
         <h2 className="center">{log}</h2>
       </fieldset>
     </div>

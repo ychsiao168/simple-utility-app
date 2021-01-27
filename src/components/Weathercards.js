@@ -40,7 +40,7 @@ const Weathercards = () => {
       <select
         className="pa3 ma3 br3 w-40"
         onChange={(e) => { setLocation(e.target.value) }}
-        defaultValue={location}
+        value={location}
       >
         <option value="" disabled>選擇縣市</option>
         {
@@ -50,7 +50,7 @@ const Weathercards = () => {
         }
       </select>
 
-      <fieldset className="flex flex-row justify-center center pa3 ma3 br3 w-40">
+      <fieldset className="flex flex-row flex-wrap justify-center center pa3 ma3 br3 w-40">
         <legend>{locationName}</legend>
         <Weathercard records={gRecords} index={0} />
         <Weathercard records={gRecords} index={1} />

@@ -1,18 +1,18 @@
 import React from 'react'
 import Checkbox from './Checkbox'
 
-const CheckboxGroup = ({ checkedArr, handler }) => {
+const CheckboxGroup = ({ checkedArr, handler, base }) => {
   const checkboxArr = checkedArr.map((checked, index) => {
     return <Checkbox
-      label={index.toString(10).padStart(2, "0")}
+      label={(base + index).toString(10).padStart(2, "0")}
       isSelected={checked}
       onCheckboxChange={handler}
-      key={index.toString(10).padStart(2, "0")}
+      key={(base + index).toString(10).padStart(2, "0")}
     />
   })
 
   return (
-    <div className="f5 flex flex-row-reverse ma1">
+    <div className="flex flex-row-reverse ma1 justify-center">
       {checkboxArr}
     </div>
   );

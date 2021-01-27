@@ -77,17 +77,41 @@ const BinConverter = () => {
     return <table className="center">
       <tbody>
         <tr>
-          <td>Binary</td>
+          <td>Bin</td>
           <td>
-            <input type="text" name="binary" readOnly={true} maxLength="32" size="32" style={{ "textAlign": "right" }}
-              value={binValue} />
+            <input type="text" name="binary24" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
+              value={binValue.slice(0, 8)} />
           </td>
         </tr>
 
         <tr>
-          <td>Decimal</td>
+          <td></td>
           <td>
-            <input type="text" name="decimal" readOnly={true} maxLength="32" size="32" style={{ "textAlign": "right" }}
+            <input type="text" name="binary16" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
+              value={binValue.slice(8, 16)} />
+          </td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td>
+            <input type="text" name="binary08" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
+              value={binValue.slice(16, 24)} />
+          </td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td>
+            <input type="text" name="binary00" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
+              value={binValue.slice(24, 32)} />
+          </td>
+        </tr>
+
+        <tr>
+          <td>Dec</td>
+          <td>
+            <input type="text" name="decimal" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
               value={decValue} />
           </td>
         </tr>
@@ -95,7 +119,7 @@ const BinConverter = () => {
         <tr>
           <td>Hex</td>
           <td>
-            <input type="text" name="Hex" readOnly={true} maxLength="32" size="32" style={{ "textAlign": "right" }}
+            <input type="text" name="Hex" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
               value={hexValue} />
           </td>
         </tr>
@@ -105,38 +129,64 @@ const BinConverter = () => {
 
 
   return (
-    <div>
-      <fieldset className="ba br3 ma3 w-60 center">
+    <div className="flex flex-column justify-center center w-60">
+      <fieldset className="ba br3 ma3">
         <legend>Inputs</legend>
         <CheckboxGroup
-          checkedArr={checkedArr}
+          checkedArr={checkedArr.slice(24, 32)}
           handler={handleCheckboxChange}
+          base={24}
+        />
+
+        <CheckboxGroup
+          checkedArr={checkedArr.slice(16, 24)}
+          handler={handleCheckboxChange}
+          base={16}
+        />
+
+        <CheckboxGroup
+          checkedArr={checkedArr.slice(8, 16)}
+          handler={handleCheckboxChange}
+          base={8}
+        />
+
+        <CheckboxGroup
+          checkedArr={checkedArr.slice(0, 8)}
+          handler={handleCheckboxChange}
+          base={0}
         />
       </fieldset>
 
-      <fieldset className="ba br3 ma3 w-60 center">
+      <fieldset className="ba br3 ma3 f5">
         <legend>Outputs</legend>
         <OutputTable />
       </fieldset>
 
-      <fieldset className="ba br3 ma3 justify-center w-60 center">
+      <fieldset className="ba br3 ma3">
         <legend>Buttons</legend>
 
-        <button className="br3 ma1 pointer" onClick={handleToggle}>
-          Toggle
-        </button>
+        <div className="flex flex-row">
+          <button className="br3 ma1 pointer w-50" onClick={handleToggle}>
+            Toggle
+          </button>
 
-        <button className="br3 ma1 pointer" onClick={handleRandomize}>
-          Randomize
-        </button>
+          <button className="br3 ma1 pointer w-50" onClick={handleRandomize}>
+            Randomize
+          </button>
+        </div>
 
-        <button className="br3 ma1 pointer" onClick={handleResetAll}>
-          Reset all
-        </button>
+        <div className="flex flex-row">
+          <button className="br3 ma1 pointer  w-50" onClick={handleResetAll}>
+            Reset all
+          </button>
 
-        <button className="br3 ma1 pointer" onClick={handleCheckAll}>
-          Check all
-        </button>
+          <button className="br3 ma1 pointer  w-50" onClick={handleCheckAll}>
+            Check all
+          </button>
+        </div>
+
+
+
       </fieldset>
     </div >
   )

@@ -68,10 +68,10 @@ const AirQuality = () => {
   const DropdownMenu = () => {
 
     return (
-      <fieldset className="flex flex-row w-60 center justify-center br3">
+      <fieldset className="flex flex-row flex-wrap w-60 center justify-center br3">
         <legend> 測站 </legend>
         <select
-          className="pa3 ma3 br3 w-40"
+          className="pa2 ma2 br3"
           onChange={e => {
             //console.log("Location onChange", e.target.value, siteArr[e.target.value][0])
             setLocation(e.target.value);
@@ -88,7 +88,7 @@ const AirQuality = () => {
         </select>
 
         <select
-          className="pa3 ma3 br3 w-40"
+          className="pa2 ma2 br3"
           onChange={e => setSite(e.target.value)}
           value={gSite}
         >
@@ -124,7 +124,7 @@ const AirQuality = () => {
 
 
     return (
-      <fieldset className="flex flex-column w-60 center justify-center br3">
+      <fieldset className="flex flex-column w-60 center justify-center ma3 pa3 br3">
         {record["PublishTime"]} <br></br>
         {record["County"]} / {record["SiteName"]}<br></br>
         <h1>{record["AQI"]}</h1><br></br>

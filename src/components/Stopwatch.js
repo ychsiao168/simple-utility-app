@@ -139,9 +139,9 @@ class Stopwatch extends Component {
   addResult = (index, total, lap) => {
     // make one table row
     const newRow = <tr>
-      <td>{`#${(index + 1).toString().padStart(3, "0")}`}</td>
-      <td>{total}</td>
-      <td>{lap}</td>
+      <td className="bg-light-red">{`#${(index + 1).toString().padStart(2, "0")}`}</td>
+      <td className="bg-light-green">{total}</td>
+      <td className="bg-light-blue">{lap}</td>
     </tr>
 
     this.setState({
@@ -151,21 +151,21 @@ class Stopwatch extends Component {
 
   render() {
     return (
-      <div>
-        <div className="flex flex-row ma3 w-60 center">
-          <fieldset className="w-50 ma3 br3">
+      <div className="flex flex-column justify-center center w-60">
+        <fieldset className="ba br3 ma3">
+          <fieldset className="br3">
             <legend>Total</legend>
-            <h1>{this.state.totalTime}</h1>
+            <h2>{this.state.totalTime}</h2>
           </fieldset>
-          <fieldset className="w-50 ma3 br3">
+          <fieldset className="br3">
             <legend>LAP</legend>
-            <h1>{this.state.lapTime}</h1>
+            <h2>{this.state.lapTime}</h2>
           </fieldset>
-        </div>
+        </fieldset>
 
-        <div className="flex flex-row ma3 w-60 center justify-center">
+        <fieldset className="ba br3 ma3">
           <button
-            className="br3 w-20 pa3 ma3"
+            className="br3 pa2 ma2"
             disabled={!this.state.enBtnReset}
             onClick={this.handleReset}
           >
@@ -173,23 +173,23 @@ class Stopwatch extends Component {
           </button>
 
           <button
-            className="br3 w-20 pa3 ma3"
+            className="br3 pa2 ma2"
             disabled={!this.state.enBtnStart}
             onClick={this.handleStart}>
             {this.state.startButtonText}
           </button>
 
           <button
-            className="br3 w-20 pa3 ma3"
+            className="br3 pa2 ma2"
             disabled={!this.state.enBtnLap}
             onClick={this.handleLap}>
             LAP
           </button>
-        </div>
+        </fieldset>
 
-        <fieldset className="flex flex-row ma3 w-60 center br3">
+        <fieldset className="ba br3 ma3">
           <legend> Results </legend>
-          <table className="center f3 w-90">
+          <table className="center f5">
             <thead>
               <td>No.</td>
               <td>Total</td>
