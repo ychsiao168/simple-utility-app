@@ -1,38 +1,33 @@
-import { Component } from "react"
+import { useState, useEffect } from "react"
 
-class Stopwatch extends Component {
+let timerID = null
+let tTotalStart = 0
+let tTotalElpased = 0
+let tLapStart = 0
+let tPrevElpased = 0
+let startButtonState = "start"
+let resultIndex = 0
+let totalStr = ""
+let lapStr = ""
 
-  constructor(props) {
-    super(props)
-    this.timerID = null
-    this.tTotalStart = 0
-    this.tTotalElpased = 0
-    this.tLapStart = 0
-    this.tPrevElpased = 0
-    this.startButtonState = "start"
-    this.resultIndex = 0
+const Stopwatch = () => {
 
-    this.totalStr = ""
-    this.lapStr = ""
+  const [totalTime, setTotalTime] = useState("")
+  const [lapTime, setLapTime] = useState("")
+  const [startButtonText, setStartButtonText] = useState("Start")
+  const [resultRows, setResultRows] = useState(<tr></tr>)
+  const [enBtnReset, setEnBtnReset] = useState(false)
+  const [enBtnStart, setEnBtnStart] = useState(true)
+  const [enBtnLap, setEnBtnLap] = useState(false)
 
-    this.state = {
-      totalTime: "",
-      lapTime: "",
-      startButtonText: "Start",
-      resultRows: <tr></tr>,
-      enBtnReset: false,
-      enBtnStart: true,
-      enBtnLap: false,
-    }
-  }
 
-  componentDidMount = () => {
-    this.totalStr = this.makeTimeString(0)
-    this.lapStr = this.makeTimeString(0)
-    this.updateTime()
-  }
+  useEffect(() => {
+    totalStr = makeTimeString(0)
+    lapStr = makeTimeString(0)
+    updateTime()
+  }, [])
 
-  makeTimeString = (t) => {
+  const makeTimeString = (t) => {
 
     const tMili = t % 1000
     t = (t - tMili) / 1000 // convert t to second
@@ -43,46 +38,39 @@ class Stopwatch extends Component {
   }
 
 
-  updateTime = (buttonText = null) => {
-
-    this.setState(
-      Object.assign(
-        {
-          totalTime: this.totalStr,
-          lapTime: this.lapStr,
-        },
-        buttonText === null ? {} : { startButtonText: buttonText }
-      )
-    )
-
+  const updateTime = () => {
+    setTotalTime(totalStr)
+    setLapTime(lapStr)
   }
 
-  handleStart = () => {
-    switch (this.startButtonState) {
+  const handleStart = () => {
+
+    switch (startButtonState) {
       case "start":
-        this.tTotalStart = new Date().getTime()
-        this.tLapStart = this.tTotalStart
 
-        this.timerID = setInterval(() => {
-          this.tTotalElpased = new Date().getTime() - this.tTotalStart + this.tPrevElpased
-          let timeElapseLAP = new Date().getTime() - this.tLapStart
+        tTotalStart = new Date().getTime()
+        tLapStart = tTotalStart
 
-          this.totalStr = this.makeTimeString(this.tTotalElpased)
-          this.lapStr = this.makeTimeString(timeElapseLAP)
+        timerID = setInterval(() => {
+          tTotalElpased = new Date().getTime() - tTotalStart + tPrevElpased
+          let timeElapseLAP = new Date().getTime() - tLapStart
 
-          this.updateTime("Stop")
+          totalStr = makeTimeString(tTotalElpased)
+          lapStr = makeTimeString(timeElapseLAP)
+
+          updateTime()
         }, 10)
 
-        this.startButtonState = "stop"
-        this.setState({
-          enBtnReset: true,
-          enBtnStart: true,
-          enBtnLap: true,
-        })
+        setStartButtonText("Stop")
+        startButtonState = "stop"
+
+        setEnBtnReset(true)
+        setEnBtnStart(true)
+        setEnBtnLap(true)
         break
 
       case "stop":
-        this.handlePause()
+        handlePause()
         break
 
       default:
@@ -90,120 +78,121 @@ class Stopwatch extends Component {
     }
   }
 
-  handlePause = () => {
-    if (this.timerID != null) {
-      clearInterval(this.timerID)
-      this.timerID = null
+  const handlePause = () => {
+    if (timerID != null) {
+      clearInterval(timerID)
+      timerID = null
     }
 
-    this.tPrevElpased = this.tTotalElpased
-    this.startButtonState = "start"
-    this.updateTime("Start")
-    this.setState({
-      enBtnReset: true,
-      enBtnStart: true,
-      enBtnLap: false,
-    })
-    this.addResult(this.resultIndex++, this.totalStr, this.lapStr)
+    tPrevElpased = tTotalElpased
+    startButtonState = "start"
+    setStartButtonText("Start")
+
+    updateTime()
+
+    setEnBtnReset(true)
+    setEnBtnStart(true)
+    setEnBtnLap(false)
+
+    addResult(resultIndex++, totalStr, lapStr)
   }
 
-  handleLap = () => {
-    this.tLapStart = new Date().getTime()
-    this.addResult(this.resultIndex++, this.totalStr, this.lapStr)
+  const handleLap = () => {
+    tLapStart = new Date().getTime()
+    addResult(resultIndex++, totalStr, lapStr)
   }
 
-  handleReset = () => {
-    if (this.timerID != null) {
-      clearInterval(this.timerID)
-      this.timerID = null
+  const handleReset = () => {
+    if (timerID != null) {
+      clearInterval(timerID)
+      timerID = null
     }
-    this.tTotalStart = 0
-    this.tTotalElpased = 0
-    this.tLapStart = 0
-    this.tPrevElpased = 0
-    this.startButtonState = "start"
-    this.resultIndex = 0
-    this.totalStr = this.makeTimeString(0)
-    this.lapStr = this.makeTimeString(0)
-    this.updateTime("Start")
+    tTotalStart = 0
+    tTotalElpased = 0
+    tLapStart = 0
+    tPrevElpased = 0
+    startButtonState = "start"
+    resultIndex = 0
+    totalStr = makeTimeString(0)
+    lapStr = makeTimeString(0)
+    updateTime()
+    setStartButtonText("Start")
 
-    this.setState({
-      resultRows: [],
-      enBtnReset: false,
-      enBtnStart: true,
-      enBtnLap: false,
-    })
+    setResultRows([])
+    setEnBtnReset(false)
+    setEnBtnStart(true)
+    setEnBtnLap(false)
   }
 
 
-  addResult = (index, total, lap) => {
+  const addResult = (index, total, lap) => {
     // make one table row
-    const newRow = <tr>
+    const newRow = <tr key="index">
       <td className="bg-light-red">{`#${(index + 1).toString().padStart(2, "0")}`}</td>
       <td className="bg-light-green">{total}</td>
       <td className="bg-light-blue">{lap}</td>
     </tr>
 
-    this.setState({
-      resultRows: [newRow, this.state.resultRows]
-    })
+    setResultRows([newRow, resultRows])
   }
 
-  render() {
-    return (
-      <div className="flex flex-column justify-center center w-60">
-        <fieldset className="ba br3 ma3">
-          <fieldset className="br3">
-            <legend>Total</legend>
-            <h2>{this.state.totalTime}</h2>
-          </fieldset>
-          <fieldset className="br3">
-            <legend>LAP</legend>
-            <h2>{this.state.lapTime}</h2>
-          </fieldset>
+
+  return (
+    <div className="flex flex-column justify-center center w-60">
+      <fieldset className="ba br3 ma3">
+        <fieldset className="br3">
+          <legend>Total</legend>
+          <h2>{totalTime}</h2>
         </fieldset>
-
-        <fieldset className="ba br3 ma3">
-          <button
-            className="br3 pa2 ma2"
-            disabled={!this.state.enBtnReset}
-            onClick={this.handleReset}
-          >
-            Reset
-          </button>
-
-          <button
-            className="br3 pa2 ma2"
-            disabled={!this.state.enBtnStart}
-            onClick={this.handleStart}>
-            {this.state.startButtonText}
-          </button>
-
-          <button
-            className="br3 pa2 ma2"
-            disabled={!this.state.enBtnLap}
-            onClick={this.handleLap}>
-            LAP
-          </button>
+        <fieldset className="br3">
+          <legend>LAP</legend>
+          <h2>{lapTime}</h2>
         </fieldset>
+      </fieldset>
 
-        <fieldset className="ba br3 ma3">
-          <legend> Results </legend>
-          <table className="center f5">
-            <thead>
+      <fieldset className="ba br3 ma3">
+        <button
+          className="br3 pa2 ma2"
+          disabled={!enBtnReset}
+          onClick={handleReset}
+        >
+          Reset
+          </button>
+
+        <button
+          className="br3 pa2 ma2"
+          disabled={!enBtnStart}
+          onClick={handleStart}>
+          {startButtonText}
+        </button>
+
+        <button
+          className="br3 pa2 ma2"
+          disabled={!enBtnLap}
+          onClick={handleLap}>
+          LAP
+          </button>
+      </fieldset>
+
+      <fieldset className="ba br3 ma3">
+        <legend> Results </legend>
+        <table className="center f5">
+          <thead>
+            <tr>
               <td>No.</td>
               <td>Total</td>
               <td>LAP</td>
-            </thead>
-            <tbody>
-              {this.state.resultRows}
-            </tbody>
-          </table>
-        </fieldset>
+            </tr>
+          </thead>
+          <tbody>
+            {resultRows}
+          </tbody>
+        </table>
+      </fieldset>
 
-      </div>
-    )
-  }
+    </div>
+  )
+
 }
 
 export default Stopwatch
