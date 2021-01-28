@@ -124,27 +124,85 @@ const AirQuality = () => {
 
 
     return (
-      <fieldset className="flex flex-column w-60 center justify-center ma3 pa3 br3">
-        {record["PublishTime"]} <br></br>
-        {record["County"]} / {record["SiteName"]}<br></br>
-        <h1>{record["AQI"]}</h1><br></br>
-        {record["Status"]}<br></br>
-        PM2.5 移動平均{record["PM2.5_AVG"]}<br></br>
-        PM2.5 小時濃度{record["PM2.5"]}<br></br>
+      <fieldset className="flex flex-column w-60 center justify-center ma2 pa2 br3">
+        {record["PublishTime"]} <br></br><br></br>
+        <div className="ba br3">
+          {record["County"]} / {record["SiteName"]}
+          <h1>{record["AQI"]}</h1>
+          {record["Status"]}
+        </div>
+        <br></br>
 
-        PM10 移動平均{record["PM10_AVG"]}<br></br>
-        PM10 小時濃度{record["PM10"]}<br></br>
+        <table>
+          <tbody>
+            <tr>
+              <td className="f7 bb b--black-20" rowSpan="2">PM<sub>2.5</sub> <br></br> (μg/m3) <br></br> 細懸浮微粒</td>
+              <td className="f7">移動平均</td>
+              <td className="f3">{record["PM2.5_AVG"]}</td>
+            </tr>
 
-        O3 8小時移動平均{record["O3_8hr"]}<br></br>
-        O3 小時濃度{record["O3"]}<br></br>
+            <tr>
+              <td className="f7 bb b--black-20">小時濃度</td>
+              <td className="f3 bb b--black-20">{record["PM2.5"]}</td>
+            </tr>
 
-        CO 8小時移動平均{record["CO_8hr"]}<br></br>
-        CO 小時濃度{record["CO"]}<br></br>
+            <tr>
+              <td className="f7 bb b--black-20" rowSpan="2">PM<sub>10</sub> <br></br> (μg/m3) <br></br> 懸浮微粒</td>
+              <td className="f7">移動平均</td>
+              <td className="f3">{record["PM10_AVG"]}</td>
+            </tr>
 
-        SO2 小時濃度{record["SO2"]}<br></br>
+            <tr>
+              <td className="f7 bb b--black-20">小時濃度</td>
+              <td className="f3 bb b--black-20">{record["PM10"]}</td>
+            </tr>
 
-        NO2 小時濃度{record["NO2"]}<br></br>
-      </fieldset>
+            <tr>
+              <td className="f7 bb b--black-20" rowSpan="2">O<sub>3</sub> <br></br> (ppb) <br></br> 臭氧</td>
+              <td className="f7">8小時移動平均</td>
+              <td className="f3">{record["O3_8hr"]}</td>
+            </tr>
+
+            <tr>
+              <td className="f7 bb b--black-20">小時濃度</td>
+              <td className="f3 bb b--black-20">{record["O3"]}</td>
+            </tr>
+
+            <tr>
+              <td className="f7 bb b--black-20" rowSpan="2">CO <br></br> (ppm) <br></br> 一氧化碳</td>
+              <td className="f7">8小時移動平均</td>
+              <td className="f3">{record["CO_8hr"]}</td>
+            </tr>
+
+            <tr>
+              <td className="f7 bb b--black-20">小時濃度</td>
+              <td className="f3 bb b--black-20">{record["CO"]}</td>
+            </tr>
+
+            <tr>
+              <td className="f7 bb b--black-20" rowSpan="2">SO<sub>2</sub> <br></br> (ppb) <br></br> 二氧化硫</td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr>
+              <td className="f7 bb b--black-20">小時濃度</td>
+              <td className="f3 bb b--black-20">{record["SO2"]}</td>
+            </tr>
+
+            <tr>
+              <td className="f7 bb b--black-20" rowSpan="2">NO<sub>2</sub> <br></br> (ppb) <br></br> 二氧化氮</td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr>
+              <td className="f7 bb b--black-20">小時濃度</td>
+              <td className="f3 bb b--black-20">{record["NO2"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset >
     )
   }
 
