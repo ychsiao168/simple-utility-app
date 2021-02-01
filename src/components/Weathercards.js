@@ -17,24 +17,23 @@ const Weathercards = () => {
   const [gRecords, setRecords] = useState(null);
 
   useEffect(() => {
-    let isMounted = true  // fix warning
-    fetch(encodeURI(`${API_WEATHERFC_URL}/${location}`))
+    fetch(encodeURI(`${API_WEATHERFC_URL}/all`))
       .then(data => data.json())
       .then(({ records }) => {
-        if (isMounted) {
-          setRecords(records)
-        }
+        setRecords(records)
       })
       .catch(err => console.log(err))
 
-    return () => { isMounted = false };
-  }, [location])
+  }, [])
 
   if (!gRecords) {
     return <div>Loading</div>
   }
 
-  const { locationName } = gRecords.location[0]
+
+  const locationRecord = findLocationRecord(gRecords, location)
+  const { locationName } = locationRecord
+
   return (
     <div>
       <select
@@ -52,22 +51,22 @@ const Weathercards = () => {
 
       <fieldset className="flex flex-row flex-wrap justify-center center pa3 ma3 br3 w-40">
         <legend>{locationName}</legend>
-        <Weathercard records={gRecords} index={0} />
-        <Weathercard records={gRecords} index={1} />
-        <Weathercard records={gRecords} index={2} />
+        <Weathercard locRecord={locationRecord} index={0} />
+        <Weathercard locRecord={locationRecord} index={1} />
+        <Weathercard locRecord={locationRecord} index={2} />
       </fieldset>
     </div>
   )
 }
 
 
-const Weathercard = ({ records, index }) => {
+const Weathercard = ({ locRecord, index }) => {
 
-  if (!records.location) {
+  if (!locRecord) {
     return <div></div>
   }
 
-  const { weatherElement } = records.location[0]
+  const { weatherElement } = locRecord
 
   const [wx, pop, mint, ci, maxt] = weatherElement.map(w => (w.time[index].parameter.parameterName))
 
@@ -111,6 +110,19 @@ const getTimeString = (start, end) => {
 
 const getWxImgUrl = (index) => {
   return `${process.env.PUBLIC_URL}/images/${index.toString().padStart(2, "0")}.svg`
+}
+
+const findLocationRecord = (records, locName) => {
+  let retObj = null
+  records.location.some(loc => {
+    if (loc.locationName === locName) {
+      retObj = Object.assign({}, loc)
+      return true // it's break
+    }
+    return false  // it's continue
+  })
+
+  return retObj
 }
 
 export default Weathercards
