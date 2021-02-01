@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const API_WEATHERFC_URL = "https://simple-utility-api.herokuapp.com/weatherfc"
+const API_WEATHERFC_URL = "https://176.122.164.163:5001/weatherfc"
 const locationArr = [
   "基隆市", "臺北市", "新北市", "桃園市",
   "新竹市", "新竹縣", "苗栗縣", "臺中市",
