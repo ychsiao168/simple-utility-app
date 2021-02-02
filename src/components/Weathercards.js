@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
-const API_WEATHERFC_URL = "https://simple-utility-api.herokuapp.com/weatherfc"
+//const API_WEATHERFC_URL = "https://simple-utility-api.herokuapp.com/weatherfc"
+//const API_WEATHERFC_URL = "http://127.0.0.1:3001/weatherfc"
+const API_WEATHERFC_URL = "https://www.ychsiao168.idv.tw:5001/weatherfc/"
 const locationArr = [
   "基隆市", "臺北市", "新北市", "桃園市",
   "新竹市", "新竹縣", "苗栗縣", "臺中市",
@@ -17,7 +19,7 @@ const Weathercards = () => {
   const [gRecords, setRecords] = useState(null);
 
   useEffect(() => {
-    fetch(encodeURI(`${API_WEATHERFC_URL}/all`))
+    fetch(encodeURI(`${API_WEATHERFC_URL}/`))
       .then(data => data.json())
       .then(({ records }) => {
         setRecords(records)

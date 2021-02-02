@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
-const API_AQ_URL = "https://simple-utility-api.herokuapp.com/epadata/aqx_p_432"
+//const API_AQ_URL = "https://simple-utility-api.herokuapp.com/epadata/aqx_p_432"
+//const API_WEATHERFC_URL = "http://127.0.0.1:3001/epadata/aqx_p_432"
+const API_AQ_URL = "https://www.ychsiao168.idv.tw:5001/epadata/aqx_p_432"
 
 const siteArr = {
   "基隆市": ["基隆"],
