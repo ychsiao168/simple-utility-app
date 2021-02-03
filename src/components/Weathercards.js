@@ -100,6 +100,8 @@ const getTimeString = (start, end) => {
     return ("今日凌晨")
   } else if (sDate === today && sHour === "18:00:00") {
     return ("今晚明晨")
+  } else if (sDate !== today && sHour === "00:00:00") {
+    return ("今晚明晨")
   } else if (sDate !== today && sHour === "06:00:00") {
     return ("明日白天")
   } else if (sDate !== today && sHour === "18:00:00") {
