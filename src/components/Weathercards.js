@@ -81,7 +81,7 @@ ${endTime.substring(5, 16).replace("-", "/").replace(" ", "-")}`
   return (
     <div className="flex flex-column ma3 br3 pa3 bg-near-white" style={{ "width": "150px", "height": "200px" }}>
       <div title={titleTimeString}> {getTimeString(startTime, endTime)} </div>
-      <img src={getWxImgUrl(wxIndex)} alt={wx} title={wx} height="100px" />
+      <img src={getWxImgUrl(wxIndex, startTime)} alt={wx} title={wx} height="100px" />
       <div>🌡️ {mint} - {maxt}℃</div>
       <div>☂ {pop}%</div>
       <div>{ci}</div>
@@ -112,8 +112,10 @@ const getTimeString = (start, end) => {
   }
 }
 
-const getWxImgUrl = (index) => {
-  return `${process.env.PUBLIC_URL}/images/${index.toString().padStart(2, "0")}.svg`
+const getWxImgUrl = (index, startTime) => {
+  const [, sHour] = startTime.split(" ")
+  const DayOrNight = (sHour === "06:00:00") ? "day" : "night"
+  return `${process.env.PUBLIC_URL}/images/${DayOrNight}/${index.toString().padStart(2, "0")}.svg`
 }
 
 const findLocationRecord = (records, locName) => {
