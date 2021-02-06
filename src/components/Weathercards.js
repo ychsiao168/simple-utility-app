@@ -114,7 +114,7 @@ const getTimeString = (start, end) => {
 
 const getWxImgUrl = (index, startTime) => {
   const [, sHour] = startTime.split(" ")
-  const DayOrNight = (sHour === "06:00:00") ? "day" : "night"
+  const DayOrNight = (sHour === "06:00:00" || sHour === "12:00:00") ? "day" : "night"
   return `${process.env.PUBLIC_URL}/images/${DayOrNight}/${index.toString().padStart(2, "0")}.svg`
 }
 
