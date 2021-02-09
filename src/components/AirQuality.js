@@ -7,26 +7,26 @@ const API_AQ_URL = "https://www.ychsiao168.idv.tw:5001/epadata/aqx_p_432"
 const siteArr = {
   "基隆市": ["基隆"],
   "臺北市": ["士林", "大同", "中山", "古亭", "松山", "陽明", "萬華"],
-  "新北市": ["汐止", "萬里", "新店", "土城", "板橋", "新莊", "菜寮", "林口", "淡水", "三重", "永和", "富貴角", "新北(樹林)", "永和(環河)"],
-  "南投縣": ["南投", "竹山", "埔里"],
+  "新北市": ["三重", "土城", "永和", "汐止", "板橋", "林口", "淡水", "菜寮", "新店", "新莊", "萬里", "新北(樹林)", "富貴角", "永和(環河)"],
+  "桃園市": ["大園", "中壢", "平鎮", "桃園", "龍潭", "觀音"],
+  "新竹市": ["新竹", "新竹(北區)"],
+  "新竹縣": ["竹東", "湖口"],
+  "苗栗縣": ["三義", "苗栗", "頭份"],
+  "臺中市": ["大里", "西屯", "沙鹿", "忠明", "豐原"],
+  "彰化縣": ["二林", "彰化", "線西", "彰化(員林)", "彰化(大城)"],
+  "南投縣": ["竹山", "南投", "埔里"],
+  "雲林縣": ["斗六", "崙背", "麥寮", "臺西"],
   "嘉義市": ["嘉義"],
-  "嘉義縣": ["新港", "朴子"],
-  "宜蘭縣": ["宜蘭", "冬山"],
-  "屏東縣": ["屏東", "潮州", "恆春", "屏東(琉球)", "屏東(枋寮)"],
-  "彰化縣": ["彰化", "線西", "二林", "彰化(員林)", "彰化(大城)"],
-  "新竹市": ["新竹"],
-  "新竹縣": ["湖口", "竹東"],
-  "桃園市": ["桃園", "大園", "觀音", "平鎮", "龍潭", "中壢"],
-  "澎湖縣": ["馬公"],
-  "臺中市": ["豐原", "沙鹿", "大里", "忠明", "西屯"],
-  "臺南市": ["新營", "善化", "安南", "臺南", "臺南(麻豆)", "臺南(北門)"],
-  "臺東縣": ["臺東", "關山"],
+  "嘉義縣": ["朴子", "新港"],
+  "臺南市": ["安南", "善化", "新營", "臺南", "臺南(麻豆)", "臺南(北門)"],
+  "高雄市": ["大寮", "小港", "仁武", "左營", "林園", "前金", "前鎮", "美濃", "復興", "楠梓", "鳳山", "橋頭"],
+  "屏東縣": ["屏東", "恆春", "潮州", "屏東(琉球)", "屏東(枋寮)"],
+  "宜蘭縣": ["冬山", "宜蘭"],
   "花蓮縣": ["花蓮"],
-  "苗栗縣": ["頭份", "苗栗", "三義"],
-  "連江縣": ["馬祖"],
+  "臺東縣": ["臺東", "關山"],
+  "澎湖縣": ["馬公"],
   "金門縣": ["金門"],
-  "雲林縣": ["斗六", "崙背", "臺西", "麥寮"],
-  "高雄市": ["美濃", "橋頭", "仁武", "鳳山", "大寮", "林園", "楠梓", "左營", "前金", "前鎮", "小港", "復興"],
+  "連江縣": ["馬祖"],
 }
 
 const locationArr = Object.keys(siteArr)
@@ -44,6 +44,7 @@ const AirQuality = () => {
     fetch(encodeURI(API_AQ_URL))
       .then(data => data.json())
       .then(({ records }) => {
+
         setRecords(records)
 
         // get all locations and sites  // TODO
@@ -72,7 +73,7 @@ const AirQuality = () => {
     return (
       <fieldset className="flex flex-row flex-wrap w-60 center justify-center br3">
         <legend> 測站 </legend>
-        <select
+        <select autoFocus
           className="pa2 ma2 br3"
           onChange={e => {
             //console.log("Location onChange", e.target.value, siteArr[e.target.value][0])
@@ -106,15 +107,46 @@ const AirQuality = () => {
     )
   }
 
+  const _getAQIColor = (aqi) => {
+    aqi = Number(aqi)
+    if (aqi < 51) {
+      return "b--green"
+    } else if (aqi < 101) {
+      return "b--gold"
+    } else if (aqi < 151) {
+      return "b--orange"
+    } else if (aqi < 201) {
+      return "b--hot-pink"
+    } else if (aqi < 301) {
+      return "b--purple"
+    } else if (aqi < 501) {
+      return "b--light-purple"
+    }
+    return "b--navy"
+  }
+
+  const _fillEmptyRecord = (record) => {
+    const checkArr = ["PM2.5_AVG", "PM2.5", "PM10_AVG", "PM10", "O3_8hr", "O3", "CO_8hr", "CO", "SO2", "NO2",]
+
+    checkArr.forEach(x => {
+      if (record[x] === "") {
+        record[x] = "..."
+      }
+    })
+  }
 
   const AirQualityInfoCard = ({ records }) => {
 
     let record = null
 
     if (records.length) {
-      records.forEach(r => {
+      records.some(r => {
         if (r.SiteName === gSite && r.County === gLocation) {
           record = r
+          _fillEmptyRecord(record)
+          return true
+        } else {
+          return false
         }
       })
     }
@@ -127,10 +159,13 @@ const AirQuality = () => {
 
     return (
       <fieldset className="flex flex-column w-60 center justify-center ma2 pa2 br3">
-        {record["PublishTime"]} <br></br><br></br>
-        <div className="ba br3">
+        {record["PublishTime"]}
+        <div className="ba br3 ma3 pa1">
           {record["County"]} / {record["SiteName"]}
-          <h1>{record["AQI"]}</h1>
+          <h1
+            className={"br-100 ba bw2 h3 w3 center pt2 " + _getAQIColor(record["AQI"])}>
+            {record["AQI"]}
+          </h1>
           {record["Status"]}
         </div>
         <br></br>

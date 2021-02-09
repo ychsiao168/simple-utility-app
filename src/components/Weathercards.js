@@ -38,7 +38,7 @@ const Weathercards = () => {
 
   return (
     <div>
-      <select
+      <select autoFocus
         className="pa3 ma3 br3 w-40"
         onChange={(e) => { setLocation(e.target.value) }}
         value={location}
