@@ -73,63 +73,9 @@ const BinConverter = () => {
     setCheckedArr(Array(32).fill(true))
   }
 
-  const OutputTable = () => {
-    return <table className="center">
-      <tbody>
-        <tr>
-          <td>Bin</td>
-          <td>
-            <input type="text" name="binary24" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
-              value={binValue.slice(0, 8)} />
-          </td>
-        </tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <input type="text" name="binary16" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
-              value={binValue.slice(8, 16)} />
-          </td>
-        </tr>
-
-        <tr>
-          <td></td>
-          <td>
-            <input type="text" name="binary08" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
-              value={binValue.slice(16, 24)} />
-          </td>
-        </tr>
-
-        <tr>
-          <td></td>
-          <td>
-            <input type="text" name="binary00" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
-              value={binValue.slice(24, 32)} />
-          </td>
-        </tr>
-
-        <tr>
-          <td>Dec</td>
-          <td>
-            <input type="text" name="decimal" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
-              value={decValue} />
-          </td>
-        </tr>
-
-        <tr>
-          <td>Hex</td>
-          <td>
-            <input type="text" name="Hex" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
-              value={hexValue} />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  }
-
-
-  return (
-    <div className="flex flex-column justify-center center w-60">
+  const INPUTS = () => {
+    return (
       <fieldset className="ba br3 ma3">
         <legend>Inputs</legend>
         <CheckboxGroup
@@ -156,12 +102,70 @@ const BinConverter = () => {
           base={0}
         />
       </fieldset>
+    )
+  }
 
+  const OUTPUTS = () => {
+    return (
       <fieldset className="ba br3 ma3 f5">
         <legend>Outputs</legend>
-        <OutputTable />
-      </fieldset>
+        <table className="center">
+          <tbody>
+            <tr>
+              <td>Bin</td>
+              <td>
+                <input type="text" name="binary24" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
+                  value={binValue.slice(0, 8)} />
+              </td>
+            </tr>
 
+            <tr>
+              <td></td>
+              <td>
+                <input type="text" name="binary16" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
+                  value={binValue.slice(8, 16)} />
+              </td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td>
+                <input type="text" name="binary08" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
+                  value={binValue.slice(16, 24)} />
+              </td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td>
+                <input type="text" name="binary00" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
+                  value={binValue.slice(24, 32)} />
+              </td>
+            </tr>
+
+            <tr>
+              <td>Dec</td>
+              <td>
+                <input type="text" name="decimal" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
+                  value={decValue} />
+              </td>
+            </tr>
+
+            <tr>
+              <td>Hex</td>
+              <td>
+                <input type="text" name="Hex" readOnly={true} maxLength="10" size="10" style={{ "textAlign": "right" }}
+                  value={hexValue} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
+    )
+  }
+
+  const BUTTONS = () => {
+    return (
       <fieldset className="ba br3 ma3">
         <legend>Buttons</legend>
 
@@ -184,10 +188,15 @@ const BinConverter = () => {
             Check all
           </button>
         </div>
-
-
-
       </fieldset>
+    )
+  }
+
+  return (
+    <div className="flex flex-column justify-center center mw6">
+      <INPUTS />
+      <OUTPUTS />
+      <BUTTONS />
     </div >
   )
 

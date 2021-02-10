@@ -136,23 +136,28 @@ const Stopwatch = () => {
     setResultRows([newRow, resultRows])
   }
 
-
-  return (
-    <div className="flex flex-column justify-center center w-60">
+  const STOPWATCH = () => {
+    return (
       <fieldset className="ba br3 ma3">
-        <fieldset className="br3">
+        <legend> Stopwatch </legend>
+        <fieldset className="br3 ma2">
           <legend>Total</legend>
           <h2>{totalTime}</h2>
         </fieldset>
-        <fieldset className="br3">
+        <fieldset className="br3 ma2">
           <legend>LAP</legend>
           <h2>{lapTime}</h2>
         </fieldset>
       </fieldset>
+    )
+  }
 
+  const BUTTONS = () => {
+    return (
       <fieldset className="ba br3 ma3">
+        <legend> Buttons </legend>
         <button
-          className="br3 pa2 ma2"
+          className="br3 pa2 ma2 w-25"
           disabled={!enBtnReset}
           onClick={handleReset}
         >
@@ -160,20 +165,24 @@ const Stopwatch = () => {
           </button>
 
         <button
-          className="br3 pa2 ma2"
+          className="br3 pa2 ma2 w-25"
           disabled={!enBtnStart}
           onClick={handleStart}>
           {startButtonText}
         </button>
 
         <button
-          className="br3 pa2 ma2"
+          className="br3 pa2 ma2 w-25"
           disabled={!enBtnLap}
           onClick={handleLap}>
           LAP
           </button>
       </fieldset>
+    )
+  }
 
+  const RESULTS = () => {
+    return (
       <fieldset className="ba br3 ma3">
         <legend> Results </legend>
         <table className="center f5">
@@ -189,10 +198,16 @@ const Stopwatch = () => {
           </tbody>
         </table>
       </fieldset>
+    )
+  }
 
+  return (
+    <div className="flex flex-column justify-center center mw6">
+      <STOPWATCH />
+      <BUTTONS />
+      <RESULTS />
     </div>
   )
-
 }
 
 export default Stopwatch

@@ -54,11 +54,11 @@ const Filehash = () => {
     setHashStatus(`Reading File...${e.target.files[0].name}`)
   }
 
-  return (
-    <div className="flex flex-column justify-center center w-60">
+  const INPUTS = () => {
+    return (
       <fieldset className="ba br3 ma3 flex flex-column items-center">
         <legend>Inputs</legend>
-        <label className="bg-lightest-blue br3 w-60 db tc" style={{ "wordWrap": "break-word" }}>
+        <label className="bg-lightest-blue br3 db tc" style={{ "wordWrap": "break-word" }}>
           File: {fileName.current}
           <input
             className="w-80"
@@ -70,20 +70,24 @@ const Filehash = () => {
         </label>
 
         <button
-          className="ba br3 ma2 w-60"
+          className="ba br3 ma2 w4"
           disabled={!enBtnGo}
           onClick={handleGo}
         >
           <h3>Go</h3>
         </button>
       </fieldset>
+    )
+  }
 
+  const OUTPUTS = () => {
+    return (
       <fieldset className="ba br3 ma3">
         <legend>Outputs</legend>
         <table className="center">
           <tbody>
             <tr>
-              <td className="f7">MD5</td>
+              <td>MD5</td>
               <td>
                 <textarea
                   className="tr br3"
@@ -94,7 +98,7 @@ const Filehash = () => {
               </td>
             </tr>
             <tr>
-              <td className="f7">SHA256</td>
+              <td>SHA256</td>
               <td>
                 <textarea
                   className="tr br3"
@@ -105,7 +109,7 @@ const Filehash = () => {
               </td>
             </tr>
             <tr>
-              <td className="f7">CRC32</td>
+              <td>CRC32</td>
               <td>
                 <textarea
                   className="tr br3"
@@ -118,12 +122,24 @@ const Filehash = () => {
           </tbody>
         </table>
       </fieldset>
+    )
+  }
 
+  const STATUS = () => {
+    return (
       <fieldset className="ba br3 ma3">
         <legend>Status</legend>
         {hashStatus}
       </fieldset>
-    </div>
+    )
+  }
+
+  return (
+    <div className="flex flex-column justify-center center mw6">
+      <INPUTS />
+      <OUTPUTS />
+      <STATUS />
+    </div >
   )
 }
 

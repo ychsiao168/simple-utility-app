@@ -28,35 +28,44 @@ const Weathercards = () => {
 
   }, [])
 
-  if (!gRecords) {
-    return <div>Loading</div>
+  const locationRecord = findLocationRecord(gRecords, location)
+  const locationName = locationRecord?.locationName ?? "Loading"
+
+  const DROPDOWNMENU = () => {
+    return (
+      <fieldset className="ba br3 ma3">
+        <legend> 測站 </legend>
+        <select
+          className="pa3 ma3 br3 w-50"
+          onChange={(e) => { setLocation(e.target.value) }}
+          value={location}
+        >
+          <option value="" disabled>選擇縣市</option>
+          {
+            locationArr.map((loc, idx) => (
+              <option value={loc} key={idx}>{loc}</option>
+            ))
+          }
+        </select>
+      </fieldset>
+    )
   }
 
-
-  const locationRecord = findLocationRecord(gRecords, location)
-  const { locationName } = locationRecord
+  const LOCATIONRESULTS = () => {
+    return (
+      <fieldset className="ba br3 ma3 flex flex-wrap justify-center">
+        <legend>{locationName}</legend>
+        <Weathercard className="w-20" locRecord={locationRecord} index={0} />
+        <Weathercard className="w-20" locRecord={locationRecord} index={1} />
+        <Weathercard className="w-20" locRecord={locationRecord} index={2} />
+      </fieldset>
+    )
+  }
 
   return (
-    <div>
-      <select autoFocus
-        className="pa3 ma3 br3 w-40"
-        onChange={(e) => { setLocation(e.target.value) }}
-        value={location}
-      >
-        <option value="" disabled>選擇縣市</option>
-        {
-          locationArr.map((loc, idx) => (
-            <option value={loc} key={idx}>{loc}</option>
-          ))
-        }
-      </select>
-
-      <fieldset className="flex flex-row flex-wrap justify-center center pa3 ma3 br3 w-40">
-        <legend>{locationName}</legend>
-        <Weathercard locRecord={locationRecord} index={0} />
-        <Weathercard locRecord={locationRecord} index={1} />
-        <Weathercard locRecord={locationRecord} index={2} />
-      </fieldset>
+    <div className="flex flex-column justify-center center mw6">
+      <DROPDOWNMENU />
+      <LOCATIONRESULTS />
     </div>
   )
 }
@@ -79,7 +88,7 @@ const Weathercard = ({ locRecord, index }) => {
 ${endTime.substring(5, 16).replace("-", "/").replace(" ", "-")}`
 
   return (
-    <div className="flex flex-column ma3 br3 pa3 bg-near-white" style={{ "width": "150px", "height": "200px" }}>
+    <div className="ma1 br3 pa2 bg-near-white" style={{ "width": "140px", "height": "200px" }}>
       <div title={titleTimeString}> {getTimeString(startTime, endTime)} </div>
       <img src={getWxImgUrl(wxIndex, startTime)} alt={wx} title={wx} height="100px" />
       <div>🌡️ {mint} - {maxt}℃</div>
@@ -120,7 +129,7 @@ const getWxImgUrl = (index, startTime) => {
 
 const findLocationRecord = (records, locName) => {
   let retObj = null
-  records.location.some(loc => {
+  records?.location?.some(loc => {
     if (loc.locationName === locName) {
       retObj = Object.assign({}, loc)
       return true // it's break

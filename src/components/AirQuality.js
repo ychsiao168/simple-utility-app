@@ -7,7 +7,7 @@ const API_AQ_URL = "https://www.ychsiao168.idv.tw:5001/epadata/aqx_p_432"
 const siteArr = {
   "基隆市": ["基隆"],
   "臺北市": ["士林", "大同", "中山", "古亭", "松山", "陽明", "萬華"],
-  "新北市": ["三重", "土城", "永和", "汐止", "板橋", "林口", "淡水", "菜寮", "新店", "新莊", "萬里", "新北(樹林)", "富貴角", "永和(環河)"],
+  "新北市": ["三重", "土城", "永和", "汐止", "板橋", "林口", "淡水", "菜寮", "新店", "新莊", "萬里", "新北(樹林)", "富貴角"],
   "桃園市": ["大園", "中壢", "平鎮", "桃園", "龍潭", "觀音"],
   "新竹市": ["新竹", "新竹(北區)"],
   "新竹縣": ["竹東", "湖口"],
@@ -71,10 +71,10 @@ const AirQuality = () => {
   const DropdownMenu = () => {
 
     return (
-      <fieldset className="flex flex-row flex-wrap w-60 center justify-center br3">
+      <fieldset className="ba br3 ma3">
         <legend> 測站 </legend>
-        <select autoFocus
-          className="pa2 ma2 br3"
+        <select
+          className="pa2 ma2 br3 w-40"
           onChange={e => {
             //console.log("Location onChange", e.target.value, siteArr[e.target.value][0])
             setLocation(e.target.value);
@@ -91,7 +91,7 @@ const AirQuality = () => {
         </select>
 
         <select
-          className="pa2 ma2 br3"
+          className="pa2 ma2 br3 w-40"
           onChange={e => setSite(e.target.value)}
           value={gSite}
         >
@@ -158,63 +158,78 @@ const AirQuality = () => {
 
 
     return (
-      <fieldset className="flex flex-column w-60 center justify-center ma2 pa2 br3">
+      <fieldset className="ba br3 ma3">
+        <legend> 空氣品質 </legend>
         {record["PublishTime"]}
-        <div className="ba br3 ma3 pa1">
-          {record["County"]} / {record["SiteName"]}
-          <h1
-            className={"br-100 ba bw2 h3 w3 center pt2 " + _getAQIColor(record["AQI"])}>
-            {record["AQI"]}
-          </h1>
-          {record["Status"]}
-        </div>
-        <br></br>
+        <div className="ba br3 ma3 pa3">
 
-        <table>
+          <div style={{ "color": "#14b4d0" }}>
+            {record["County"]} / {record["SiteName"]}
+          </div>
+
+          <div className={"br-100 ba bw2 h4 w4 center pt4 f1 " + _getAQIColor(record["AQI"])}
+          >
+            {record["AQI"]}
+
+          </div>
+
+          <div>
+            {record["Status"]}
+          </div>
+
+        </div>
+
+        <table className="w-100">
+          <thead>
+            <tr>
+              <th></th>
+            </tr>
+          </thead>
           <tbody>
             <tr>
               <td className="f7 bb b--black-20" rowSpan="2">PM<sub>2.5</sub> <br></br> (μg/m3) <br></br> 細懸浮微粒</td>
-              <td className="f7">移動平均</td>
-              <td className="f3">{record["PM2.5_AVG"]}</td>
+              <td className="f7 bb b--black-20">移動平均</td>
+              <td className="f5 bb b--black-20">{record["PM2.5_AVG"]}</td>
             </tr>
 
             <tr>
               <td className="f7 bb b--black-20">小時濃度</td>
-              <td className="f3 bb b--black-20">{record["PM2.5"]}</td>
+              <td className="f5 bb b--black-20">{record["PM2.5"]}</td>
             </tr>
 
             <tr>
               <td className="f7 bb b--black-20" rowSpan="2">PM<sub>10</sub> <br></br> (μg/m3) <br></br> 懸浮微粒</td>
-              <td className="f7">移動平均</td>
-              <td className="f3">{record["PM10_AVG"]}</td>
+              <td className="f7 bb b--black-20">移動平均</td>
+              <td className="f5 bb b--black-20">{record["PM10_AVG"]}</td>
             </tr>
 
             <tr>
               <td className="f7 bb b--black-20">小時濃度</td>
-              <td className="f3 bb b--black-20">{record["PM10"]}</td>
+              <td className="f5 bb b--black-20">{record["PM10"]}</td>
             </tr>
 
             <tr>
               <td className="f7 bb b--black-20" rowSpan="2">O<sub>3</sub> <br></br> (ppb) <br></br> 臭氧</td>
-              <td className="f7">8小時移動平均</td>
-              <td className="f3">{record["O3_8hr"]}</td>
+              <td className="f7 bb b--black-20">8小時<br />移動平均</td>
+              <td className="f5 bb b--black-20">{record["O3_8hr"]}</td>
             </tr>
 
             <tr>
               <td className="f7 bb b--black-20">小時濃度</td>
-              <td className="f3 bb b--black-20">{record["O3"]}</td>
+              <td className="f5 bb b--black-20">{record["O3"]}</td>
             </tr>
 
             <tr>
               <td className="f7 bb b--black-20" rowSpan="2">CO <br></br> (ppm) <br></br> 一氧化碳</td>
-              <td className="f7">8小時移動平均</td>
-              <td className="f3">{record["CO_8hr"]}</td>
+              <td className="f7 bb b--black-20">8小時<br />移動平均</td>
+              <td className="f5 bb b--black-20">{record["CO_8hr"]}</td>
             </tr>
 
             <tr>
               <td className="f7 bb b--black-20">小時濃度</td>
-              <td className="f3 bb b--black-20">{record["CO"]}</td>
+              <td className="f5 bb b--black-20">{record["CO"]}</td>
             </tr>
+
 
             <tr>
               <td className="f7 bb b--black-20" rowSpan="2">SO<sub>2</sub> <br></br> (ppb) <br></br> 二氧化硫</td>
@@ -224,7 +239,7 @@ const AirQuality = () => {
 
             <tr>
               <td className="f7 bb b--black-20">小時濃度</td>
-              <td className="f3 bb b--black-20">{record["SO2"]}</td>
+              <td className="f5 bb b--black-20">{record["SO2"]}</td>
             </tr>
 
             <tr>
@@ -235,7 +250,7 @@ const AirQuality = () => {
 
             <tr>
               <td className="f7 bb b--black-20">小時濃度</td>
-              <td className="f3 bb b--black-20">{record["NO2"]}</td>
+              <td className="f5 bb b--black-20">{record["NO2"]}</td>
             </tr>
           </tbody>
         </table>
@@ -244,7 +259,7 @@ const AirQuality = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-column justify-center center mw6">
       <DropdownMenu />
       <AirQualityInfoCard records={gRecords} />
     </div>
