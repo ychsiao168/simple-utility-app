@@ -135,6 +135,24 @@ const AirQuality = () => {
     })
   }
 
+
+  const AQIDataRow = ({ title, name0, val0, name1, val1, sep }) => {
+    return (
+      <React.Fragment>
+        <tr>
+          <td className="f7 bb b--black-20" rowSpan="2">{title}</td>
+          <td className={`f7  ${sep ? "bb b--black-20" : ""}`}>{name0}</td>
+          <td className={`f4  ${sep ? "bb b--black-20" : ""} tr`}>{val0}</td>
+        </tr>
+
+        <tr>
+          <td className="f7 bb b--black-20">{name1}</td>
+          <td className="f4 bb b--black-20 tr">{val1}</td>
+        </tr>
+      </React.Fragment>
+    )
+  }
+
   const AirQualityInfoCard = ({ records }) => {
 
     let record = null
@@ -167,7 +185,7 @@ const AirQuality = () => {
             {record["County"]} / {record["SiteName"]}
           </div>
 
-          <div className={"br-100 ba bw2 h4 w4 center pt4 f1 " + _getAQIColor(record["AQI"])}
+          <div className={"br-100 ba bw2 h3 w3 center pt2 f2 " + _getAQIColor(record["AQI"])}
           >
             {record["AQI"]}
 
@@ -180,78 +198,56 @@ const AirQuality = () => {
         </div>
 
         <table className="w-100">
-          <thead>
-            <tr>
-              <th></th>
-            </tr>
-          </thead>
           <tbody>
-            <tr>
-              <td className="f7 bb b--black-20" rowSpan="2">PM<sub>2.5</sub> <br></br> (μg/m3) <br></br> 細懸浮微粒</td>
-              <td className="f7 bb b--black-20">移動平均</td>
-              <td className="f5 bb b--black-20">{record["PM2.5_AVG"]}</td>
-            </tr>
+            <AQIDataRow
+              title={["PM", <sub>2.5</sub>, <br />, "(μg/m3)", <br />, "細懸浮微粒"]}
+              name0={"移動平均"}
+              val0={record["PM2.5_AVG"]}
+              name1={"小時濃度"}
+              val1={record["PM2.5"]}
+              sep={true}
+            />
 
-            <tr>
-              <td className="f7 bb b--black-20">小時濃度</td>
-              <td className="f5 bb b--black-20">{record["PM2.5"]}</td>
-            </tr>
+            <AQIDataRow
+              title={["PM", <sub>10</sub>, <br />, "(μg/m3)", <br />, "細懸浮微粒"]}
+              name0={"移動平均"}
+              val0={record["PM10_AVG"]}
+              name1={"小時濃度"}
+              val1={record["PM10"]}
+              sep={true}
+            />
 
-            <tr>
-              <td className="f7 bb b--black-20" rowSpan="2">PM<sub>10</sub> <br></br> (μg/m3) <br></br> 懸浮微粒</td>
-              <td className="f7 bb b--black-20">移動平均</td>
-              <td className="f5 bb b--black-20">{record["PM10_AVG"]}</td>
-            </tr>
+            <AQIDataRow
+              title={["O", <sub>3</sub>, <br />, "(ppb)", <br />, "臭氧"]}
+              name0={["8小時", <br />, "移動平均"]}
+              val0={record["O3_8hr"]}
+              name1={"小時濃度"}
+              val1={record["O3"]}
+              sep={true}
+            />
 
-            <tr>
-              <td className="f7 bb b--black-20">小時濃度</td>
-              <td className="f5 bb b--black-20">{record["PM10"]}</td>
-            </tr>
+            <AQIDataRow
+              title={["CO", <br />, "(ppm)", <br />, "一氧化碳"]}
+              name0={["8小時", <br />, "移動平均"]}
+              val0={record["CO_8hr"]}
+              name1={"小時濃度"}
+              val1={record["CO"]}
+              sep={true}
+            />
 
-            <tr>
-              <td className="f7 bb b--black-20" rowSpan="2">O<sub>3</sub> <br></br> (ppb) <br></br> 臭氧</td>
-              <td className="f7 bb b--black-20">8小時<br />移動平均</td>
-              <td className="f5 bb b--black-20">{record["O3_8hr"]}</td>
-            </tr>
+            <AQIDataRow
+              title={["SO", <sub>2</sub>, <br />, "(ppb)", <br />, "二氧化硫"]}
+              name1={"小時濃度"}
+              val1={record["SO2"]}
+              sep={false}
+            />
 
-            <tr>
-              <td className="f7 bb b--black-20">小時濃度</td>
-              <td className="f5 bb b--black-20">{record["O3"]}</td>
-            </tr>
-
-            <tr>
-              <td className="f7 bb b--black-20" rowSpan="2">CO <br></br> (ppm) <br></br> 一氧化碳</td>
-              <td className="f7 bb b--black-20">8小時<br />移動平均</td>
-              <td className="f5 bb b--black-20">{record["CO_8hr"]}</td>
-            </tr>
-
-            <tr>
-              <td className="f7 bb b--black-20">小時濃度</td>
-              <td className="f5 bb b--black-20">{record["CO"]}</td>
-            </tr>
-
-
-            <tr>
-              <td className="f7 bb b--black-20" rowSpan="2">SO<sub>2</sub> <br></br> (ppb) <br></br> 二氧化硫</td>
-              <td></td>
-              <td></td>
-            </tr>
-
-            <tr>
-              <td className="f7 bb b--black-20">小時濃度</td>
-              <td className="f5 bb b--black-20">{record["SO2"]}</td>
-            </tr>
-
-            <tr>
-              <td className="f7 bb b--black-20" rowSpan="2">NO<sub>2</sub> <br></br> (ppb) <br></br> 二氧化氮</td>
-              <td></td>
-              <td></td>
-            </tr>
-
-            <tr>
-              <td className="f7 bb b--black-20">小時濃度</td>
-              <td className="f5 bb b--black-20">{record["NO2"]}</td>
-            </tr>
+            <AQIDataRow
+              title={["NO", < sub >2</sub>, <br />, "(ppb)", <br />, "二氧化氮"]}
+              name1={"小時濃度"}
+              val1={record["NO2"]}
+              sep={false}
+            />
           </tbody>
         </table>
       </fieldset >

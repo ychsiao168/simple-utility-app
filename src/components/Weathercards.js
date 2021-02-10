@@ -53,7 +53,7 @@ const Weathercards = () => {
 
   const LOCATIONRESULTS = () => {
     return (
-      <fieldset className="ba br3 ma3 flex flex-wrap justify-center">
+      <fieldset className="ba br3 ma3 flex flex-wrap flex-auto flex-row-ns flex-column justify-center items-center">
         <legend>{locationName}</legend>
         <Weathercard className="w-20" locRecord={locationRecord} index={0} />
         <Weathercard className="w-20" locRecord={locationRecord} index={1} />
