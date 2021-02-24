@@ -12,7 +12,7 @@ const CheckboxGroup = ({ checkedArr, handler, base }) => {
   })
 
   return (
-    <div className="flex flex-row-reverse justify-center">
+    <div style={{ display: 'flex', flexDirection: 'row-reverse', justifyContent: 'center' }}>
       {checkboxArr}
     </div>
   );

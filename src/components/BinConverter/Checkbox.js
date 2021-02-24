@@ -1,7 +1,17 @@
 import React from 'react'
+import { Box } from "@material-ui/core"
 
 const Checkbox = ({ label, isSelected, onCheckboxChange }) => (
-  <div className="flex flex-column pa1 items-center">
+
+  <Box
+    fontFamily="Monospace"
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      padding: '3px',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
     <label>{label}</label>
     <input
       type="checkbox"
@@ -9,8 +19,7 @@ const Checkbox = ({ label, isSelected, onCheckboxChange }) => (
       checked={isSelected}
       onChange={onCheckboxChange}
     />
-  </div>
-
+  </Box>
 )
 
 export default Checkbox
