@@ -144,7 +144,7 @@ const StopwatchMain = React.memo(({ timerTotalDispaly, timerLapDispaly }) => {
     <Paper elevation={3}>
       <FormControl component="fieldset" className={classes.formControl} >
         <FormLabel component="legend">Main</FormLabel>
-        <Grid container justify="center" spacing={2}>
+        <Grid container justifyContent="center" spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextField
               label="Total"
@@ -181,7 +181,7 @@ const StopwatchButtons = React.memo(({ enBtnReset, enBtnStart, enBtnLap, handleR
     <Paper elevation={3}>
       <FormControl component="fieldset" className={classes.formControl} >
         <FormLabel component="legend">Buttons</FormLabel>
-        <Grid container justify="center" spacing={2}>
+        <Grid container justifyContent="center" spacing={2}>
           <Grid item xs={12} sm={4}>
             <Button
               variant="contained"

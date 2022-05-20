@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Container, FormControl, FormLabel, Paper, Select, Typography, Box, Table, TableBody, TableRow, TableCell, ThemeProvider, CircularProgress, Grid } from "@material-ui/core"
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme  } from '@material-ui/core/styles';
 import useStyles from "./styles"
 //const API_AQ_URL = "https://simple-utility-api.herokuapp.com/epadata/aqx_p_432"
-//const API_WEATHERFC_URL = "http://127.0.0.1:3001/epadata/aqx_p_432"
+//const API_AQ_URL = "http://127.0.0.1:3001/epadata/aqx_p_432"
 const API_AQ_URL = "https://www.ychsiao168.idv.tw:5001/epadata/aqx_p_432"
 
 const siteArr = {
@@ -40,7 +40,7 @@ const AirQuality = () => {
   const [gLocation, setLocation] = useState(locationArr[0])
   const [gSite, setSite] = useState(siteArr[locationArr[0]][0])
   const classes = useStyles()
-  const tableTheme = createMuiTheme({
+  const tableTheme = createTheme ({
     overrides: {
       MuiTableCell: {
         root: {
@@ -53,11 +53,11 @@ const AirQuality = () => {
 
   useEffect(() => {
     // do once only
-    // console.log("Fetching")
+    //console.log("Fetching")
     fetch(encodeURI(API_AQ_URL))
       .then(data => data.json())
       .then(({ records }) => {
-
+        // console.log(records)
         setRecords(records)
 
         // get all locations and sites  // TODO
@@ -87,7 +87,7 @@ const AirQuality = () => {
       <Paper elevation={3}>
         <FormControl component="fieldset" className={classes.formControl} >
           <FormLabel component="legend">Menu</FormLabel>
-          <Grid container spacing={1} justify="center">
+          <Grid container spacing={1} justifyContent="center">
             <Grid item xs={12} sm={6}>
               <FormControl variant="outlined" className={classes.formControl}>
                 <Select
@@ -199,7 +199,7 @@ const AirQuality = () => {
 
     if (records.length) {
       records.some(r => {
-        if (r.SiteName === gSite && r.County === gLocation) {
+        if (r.sitename === gSite && r.county === gLocation) {
           record = r
           _fillEmptyRecord(record)
           return true
@@ -215,12 +215,12 @@ const AirQuality = () => {
     }
 
     const aqiDataRows = [
-      { title: <> PM < sub > 2.5</sub> <br />(μg / m3) < br /> 細懸浮微粒</>, name0: "移動平均", val0: record["PM2.5_AVG"], sep: true, name1: "小時濃度", val1: record["PM2.5"], key: "PM2.5" },
-      { title: <>PM<sub>10</sub><br />(μg/m3)<br />細懸浮微粒</>, name0: "移動平均", val0: record["PM10_AVG"], sep: true, name1: "小時濃度", val1: record["PM10"], key: "PM10" },
-      { title: <>O<sub>3</sub><br />(ppb)<br />臭氧</>, name0: <>8小時<br />移動平均</>, val0: record["O3_8hr"], sep: true, name1: "小時濃度", val1: record["O3"], key: "O3" },
-      { title: <>CO<br />(ppm) <br />一氧化碳</>, name0: <>8小時<br />移動平均</>, val0: record["CO_8hr"], sep: true, name1: "小時濃度", val1: record["CO"], key: "CO" },
-      { title: <>SO<sub>2</sub><br />(ppb)<br />二氧化硫</>, name0: "", val0: "", sep: false, name1: "小時濃度", val1: record["SO2"], key: "SO2" },
-      { title: <>NO< sub >2</sub><br />(ppb)<br />二氧化氮</>, name0: "", val0: "", sep: false, name1: "小時濃度", val1: record["NO2"], key: "NO2" },
+      { title: <> PM < sub > 2.5</sub> <br />(μg / m3) < br /> 細懸浮微粒</>, name0: "移動平均", val0: record["pm2.5_avg"], sep: true, name1: "小時濃度", val1: record["pm2.5"], key: "PM2.5" },
+      { title: <>PM<sub>10</sub><br />(μg/m3)<br />細懸浮微粒</>, name0: "移動平均", val0: record["pm10_avg"], sep: true, name1: "小時濃度", val1: record["pm10"], key: "PM10" },
+      { title: <>O<sub>3</sub><br />(ppb)<br />臭氧</>, name0: <>8小時<br />移動平均</>, val0: record["o3_8hr"], sep: true, name1: "小時濃度", val1: record["o3"], key: "O3" },
+      { title: <>CO<br />(ppm) <br />一氧化碳</>, name0: <>8小時<br />移動平均</>, val0: record["co_8hr"], sep: true, name1: "小時濃度", val1: record["co"], key: "CO" },
+      { title: <>SO<sub>2</sub><br />(ppb)<br />二氧化硫</>, name0: "", val0: "", sep: false, name1: "小時濃度", val1: record["so2"], key: "SO2" },
+      { title: <>NO< sub >2</sub><br />(ppb)<br />二氧化氮</>, name0: "", val0: "", sep: false, name1: "小時濃度", val1: record["no2"], key: "NO2" },
     ]
 
     return (
@@ -228,22 +228,22 @@ const AirQuality = () => {
         <FormControl component="fieldset" className={classes.formControl} >
           <FormLabel component="legend">空氣品質</FormLabel>
 
-          <Typography variant="body2" align="center">{record["PublishTime"]}</Typography>
+          <Typography variant="body2" align="center">{record["publishtime"]}</Typography>
           <Box border={1} borderRadius={16} display="flex" flexDirection="column" alignItems="center">
-            <Typography variant="body1" align="center">{record["County"]} / {record["SiteName"]}</Typography>
+            <Typography variant="body1" align="center">{record["county"]} / {record["sitename"]}</Typography>
             <div style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               borderRadius: "50%",
-              border: `4px solid rgb(${_getAQIColor(record["AQI"])})`,
+              border: `4px solid rgb(${_getAQIColor(record["aqi"])})`,
               width: "100px",
               height: "100px",
             }}>
-              <Typography variant="h3">{record["AQI"]}
+              <Typography variant="h3">{record["aqi"]}
               </Typography>
             </div>
-            <Typography variant="h6" align="center">{record["Status"]}</Typography>
+            <Typography variant="h6" align="center">{record["status"]}</Typography>
           </Box>
           <ThemeProvider theme={tableTheme}>
             <Table>

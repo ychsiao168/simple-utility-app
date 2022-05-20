@@ -84,7 +84,7 @@ const UrlKeeperInputs = ({ setStatus, setUrlRows }) => {
       <FormControl component="fieldset" className={classes.formControl} >
         <FormLabel component="legend" >Inputs</FormLabel>
         <form className={classes.container} onSubmit={handleSubmit} method="post">
-          <Grid container justify="center" spacing={2}>
+          <Grid container justifyContent="center" spacing={2}>
             <Grid item xs={12} sm={10}>
               <TextField
                 autoFocus={true}
@@ -154,7 +154,7 @@ const UrlKeeperStatus = ({ status }) => {
     <Paper elevation={3}>
       <FormControl component="fieldset" className={classes.formControl} >
         <FormLabel component="legend">Status</FormLabel>
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           <Grid item xs={12} sm={8}>
             <TextField
               defaultValue={status}

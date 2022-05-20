@@ -71,7 +71,7 @@ const QRcode = () => {
             variant="outlined"
             size="small"
             multiline={true}
-            rows={5} rowsMax={5}
+            minRows={5} maxRows={5}
             autoFocus={true}
             value={inputText}
             onChange={inputHandler} onFocus={inputHandler} />
@@ -97,7 +97,7 @@ const QRcode = () => {
       <Paper elevation={3}>
         <FormControl component="fieldset" className={classes.formControl} >
           <FormLabel component="legend">QR Code</FormLabel>
-          <Grid container spacing={3} justify="center">
+          <Grid container spacing={3} justifyContent="center">
             <Grid item xs={12} sm={6}>
               <Card>
                 <CardMedia

@@ -62,7 +62,7 @@ const Filehash = () => {
       <Paper elevation={3}>
         <FormControl component="fieldset" className={classes.formControl} >
           <FormLabel component="legend" >Inputs</FormLabel>
-          <Grid container justify="center" spacing={2}>
+          <Grid container justifyContent="center" spacing={2}>
             <Grid item xs={12} sm={8}>
               <input
                 accept="image/*"
@@ -102,7 +102,7 @@ const Filehash = () => {
         <FormControl component="fieldset" className={classes.formControl} >
           <FormLabel component="legend">Outputs</FormLabel>
 
-          <Grid container justify="center" spacing={2}>
+          <Grid container justifyContent="center" spacing={2}>
             <Grid item xs={12} sm={8}>
               <TextField
                 label="MD5"
@@ -114,7 +114,7 @@ const Filehash = () => {
                 variant="outlined"
                 multiline
                 fullWidth
-                rows={2}
+                minRows={2}
               />
             </Grid>
             <Grid item xs={12} sm={8}>
@@ -132,7 +132,7 @@ const Filehash = () => {
                 variant="outlined"
                 multiline
                 fullWidth
-                rows={2}
+                minRows={2}
               />
             </Grid>
             <Grid item xs={12} sm={8}>
@@ -146,7 +146,7 @@ const Filehash = () => {
                 variant="outlined"
                 multiline
                 fullWidth
-                rows={2}
+                minRows={2}
               />
             </Grid>
           </Grid>
@@ -161,7 +161,7 @@ const Filehash = () => {
       <Paper elevation={3}>
         <FormControl component="fieldset" className={classes.formControl} >
           <FormLabel component="legend">Status</FormLabel>
-          <Grid container justify="center">
+          <Grid container justifyContent="center">
             <Grid item xs={12} sm={8}>
               <TextField
                 defaultValue={hashStatus}

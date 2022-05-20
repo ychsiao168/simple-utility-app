@@ -139,7 +139,7 @@ ${endTime.substring(5, 16).replace("-", "/").replace(" ", "-")}`
         <FormControl component="fieldset" className={classes.formControl} >
           <FormLabel component="legend">{locationName}</FormLabel>
 
-          <Grid container spacing={2} justify="center">
+          <Grid container spacing={2} justifyContent="center">
             <Grid item xs={12} sm={4} align="center">
               <Weathercard locRecord={locationRecord} index={0} />
             </Grid>
