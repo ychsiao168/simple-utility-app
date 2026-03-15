@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/simple-utility-app/static/js/main.01f4e0e9.js",
+    "main.js": "/simple-utility-app/static/js/main.f7946597.js",
     "index.html": "/simple-utility-app/index.html",
-    "main.01f4e0e9.js.map": "/simple-utility-app/static/js/main.01f4e0e9.js.map"
+    "main.f7946597.js.map": "/simple-utility-app/static/js/main.f7946597.js.map"
   },
   "entrypoints": [
-    "static/js/main.01f4e0e9.js"
+    "static/js/main.f7946597.js"
   ]
 }
