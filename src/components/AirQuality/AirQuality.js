@@ -4,7 +4,7 @@ import { createTheme  } from '@material-ui/core/styles';
 import useStyles from "./styles"
 //const API_AQ_URL = "https://simple-utility-api.herokuapp.com/epadata/aqx_p_432"
 //const API_AQ_URL = "http://127.0.0.1:3001/epadata/aqx_p_432"
-const API_AQ_URL = "https://www.ychsiao168.idv.tw:5001/epadata/aqx_p_432"
+const API_AQ_URL = "https://www.ychsiao168.idv.tw:5001/aqi"
 
 const siteArr = {
   "基隆市": ["基隆"],
@@ -56,7 +56,7 @@ const AirQuality = () => {
     //console.log("Fetching")
     fetch(encodeURI(API_AQ_URL))
       .then(data => data.json())
-      .then(({ records }) => {
+      .then((records) => {
         // console.log(records)
         setRecords(records)
 
@@ -149,7 +149,7 @@ const AirQuality = () => {
   }
 
   const _fillEmptyRecord = (record) => {
-    const checkArr = ["PM2.5_AVG", "PM2.5", "PM10_AVG", "PM10", "O3_8hr", "O3", "CO_8hr", "CO", "SO2", "NO2",]
+    const checkArr = ["pm2.5_avg", "pm2.5", "pm10_avg", "pm10", "o3_8hr", "o3", "co_8hr", "co", "so2", "no2",]
 
     checkArr.forEach(x => {
       if (record[x] === "") {
